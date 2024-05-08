@@ -1,8 +1,20 @@
-# Вход функции
-[{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'}, {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}, {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'}, {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]
+def filter_by_state(transactions: list, state: str = "EXECUTED") -> list:
+    """Функция принимает на вход список словарей и значение для ключа 'state'
+    (опциональный параметр со значением по умолчанию 'EXECUTED') и возвращает
+    новый список, содержащий только те словари, у которых ключ 'state' содержит
+    переданное в функцию значение.
+    """
+    filtered_transactions = []
+    for transaction in transactions:
+        if transaction.get("state") == state:
+            filtered_transactions.append(transaction)
+    return filtered_transactions
 
-# Выход функции со статусом по умолчанию EXECUTED
-[{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'}, {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}]
 
-# Выход функции, если вторым аргументов передано 'CANCELED'
-[{'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'}, {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]
+def sort_transactions_by_date(transactions: list, order: bool = True) -> list:
+    """
+    Функция использует встроенную функцию `sorted()` для сортировки списка словарей по дате
+    """
+    # Сортировка по дате с использованием лямбда-функции
+    sorted_transactions = sorted(transactions, key=lambda x: x["date"], reverse=order)
+    return sorted_transactions
