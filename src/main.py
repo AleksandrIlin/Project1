@@ -1,5 +1,6 @@
 import pprint
 from src.processing import filter_by_state, sort_by_date
+from src.widget import get_masks_accounts_cards, get_data_new
 
 transactions = [
     {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
@@ -7,6 +8,13 @@ transactions = [
     {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
     {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
 ]
+
+
+print(get_masks_accounts_cards("Visa Platinum 7000792289606361"))
+
+print(get_masks_accounts_cards("Счет 73654108430135874305"))
+
+print(get_data_new("2018-07-11T02:26:18.671407"))
 
 # Вызов функции со статусом по умолчанию 'EXECUTED'
 executed_transactions = filter_by_state(transactions)
@@ -33,6 +41,6 @@ pp.pprint(sorted_transactions)
 print()
 
 # Сортировка по возрастанию даты
-sorted_transactions = sort_by_date(transactions, order=False)
+sorted_transactions = sort_by_date(transactions, False)
 pp = pprint.PrettyPrinter()
 pp.pprint(sorted_transactions)
