@@ -11,7 +11,7 @@ def filter_by_state(transactions: list, state: str = "EXECUTED") -> list:
     return filtered_transactions
 
 
-def sort_transactions_by_date(transactions: list, order: bool = True) -> list:
+def sort_by_date(transactions: list, order: bool = True) -> list:
     """
     Функция использует встроенную функцию `sorted()` для сортировки списка словарей по дате
     """

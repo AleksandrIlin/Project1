@@ -1,5 +1,5 @@
 import pprint
-from src.processing import filter_by_state, sort_transactions_by_date
+from src.processing import filter_by_state, sort_by_date
 
 transactions = [
     {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
@@ -25,7 +25,7 @@ pp.pprint(canceled_transactions)
 print()
 
 # Сортировка по убыванию даты
-sorted_transactions = sort_transactions_by_date(transactions)
+sorted_transactions = sort_by_date(transactions)
 pp = pprint.PrettyPrinter()
 pp.pprint(sorted_transactions)
 
@@ -33,6 +33,6 @@ pp.pprint(sorted_transactions)
 print()
 
 # Сортировка по возрастанию даты
-sorted_transactions = sort_transactions_by_date(transactions, order=False)
+sorted_transactions = sort_by_date(transactions, order=False)
 pp = pprint.PrettyPrinter()
 pp.pprint(sorted_transactions)
