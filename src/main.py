@@ -1,6 +1,6 @@
 import pprint
 from src.processing import filter_by_state, sort_by_date
-from src.widget import get_masks_accounts_cards, get_data_new
+from src.widget import get_masks_accounts_cards, get_date_new
 
 transactions = [
     {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
@@ -14,7 +14,7 @@ print(get_masks_accounts_cards("Visa Platinum 7000792289606361"))
 
 print(get_masks_accounts_cards("Счет 73654108430135874305"))
 
-print(get_data_new("2018-07-11T02:26:18.671407"))
+print(get_date_new("2018-07-11T02:26:18.671407"))
 
 # Вызов функции со статусом по умолчанию 'EXECUTED'
 executed_transactions = filter_by_state(transactions)
