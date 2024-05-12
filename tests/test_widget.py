@@ -1,8 +1,10 @@
 import pytest
 from src.widget import get_masks_accounts_cards, get_date_new
 
+
 def tset_get_masks_accounts_cards():
     assert get_masks_accounts_cards("Visa Platinum 7000792289606361") == "Visa Platinum 7000 79** **** 6361"
+
 
 @pytest.mark.parametrize("str_number, expected", [("Maestro 1596837868705199", "Maestro 1596 83** **** 5199"),
                                                   ("Счет 64686473678894779589", "Счет **9589"),
@@ -12,7 +14,7 @@ def tset_get_masks_accounts_cards():
                                                   ("Visa Platinum 8990922113665229", "Visa Platinum 8990 92** **** 5229"
                                                    ),
                                                   ("Visa Gold 5999414228426353", "Visa Gold 5999 41** **** 6353"),
-                                                  ("Счет 73654108430135874305", "Счет **4305" ),])
+                                                  ("Счет 73654108430135874305", "Счет **4305"),])
 def test_get_mask_account(str_number, expected):
     assert get_masks_accounts_cards(str_number) == expected
 
