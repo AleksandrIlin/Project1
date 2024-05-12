@@ -27,6 +27,3 @@ def test_get_date_new():
                                                    ("2018-07-11T02:26:18.671407231", ""),])
 def test_get_date_new(date_string, expected):
     assert get_date_new(date_string) == expected
-
-
-
