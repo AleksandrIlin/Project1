@@ -1,4 +1,5 @@
 import pytest
+
 from src.widget import get_masks_accounts_cards, get_date_new
 
 
