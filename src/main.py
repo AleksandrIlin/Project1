@@ -1,8 +1,8 @@
 import pprint
-from src.processing import filter_by_state, sort_by_date
-from src.widget import get_masks_accounts_cards, get_date_new
-from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
 
+from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
+from src.processing import filter_by_state, sort_by_date
+from src.widget import get_date_new, get_masks_accounts_cards
 
 # список словарей для processing.py
 transactions = [
@@ -107,8 +107,8 @@ pp.pprint(sorted_transactions)
 print()
 
 usd_transactions = filter_by_currency(transactions1, "USD")
-for i in range(3):
-    print(usd_transactions[i]["id"])
+for _ in range(3):
+    print(next(usd_transactions)["id"])
 # для разделения результата
 print()
 
