@@ -127,6 +127,7 @@ for card_number in card_number_generator(1, 5):
 print()
 
 
+# Функция вызова декоратора с файлом сохранения "mylog.txt".
 @log(filename="../mylog.txt")
 def my_function(x: int, y: int) -> int:
     return x + y
@@ -135,6 +136,7 @@ def my_function(x: int, y: int) -> int:
 my_function(1, 2)
 
 
+# Функция вызова декоратора с ошибкой и сохранения вывода в файл "mylog.txt".
 @log(filename="../mylog.txt")
 def my_function_error(x: int, y: int) -> Union[int, float, None]:
     return x / y
@@ -143,17 +145,19 @@ def my_function_error(x: int, y: int) -> Union[int, float, None]:
 my_function_error(0, 5)
 
 
+# Функция вызова декоратора без файла сохранения и вывод в консоль.
 @log()
-def my_function_log_no_filename(x: int, y: int) -> Union[int, float, None]:
+def my_function_log_not_filename(x: int, y: int) -> Union[int, float, None]:
     return x / y
 
 
-my_function_log_no_filename(4, 2)
+my_function_log_not_filename(4, 2)
 
 
+# Функция вызова декоратора с ошибкой без файла сохранения и вывод в консоль.
 @log()
-def my_function_log_no_filename_error(x: int, y: int) -> Union[int, float, None]:
+def my_function_log_not_filename_error(x: int, y: int) -> Union[int, float, None]:
     return x / y
 
 
-my_function_log_no_filename_error(0, 3)
+my_function_log_not_filename_error(0, 3)
