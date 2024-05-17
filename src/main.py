@@ -1,6 +1,8 @@
 import pprint
+
+from src.decorators import log
 from src.processing import filter_by_state, sort_by_date
-from src.widget import get_masks_accounts_cards, get_date_new
+from src.widget import get_date_new, get_masks_accounts_cards
 
 transactions = [
     {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
@@ -44,3 +46,14 @@ print()
 sorted_transactions = sort_by_date(transactions, False)
 pp = pprint.PrettyPrinter()
 pp.pprint(sorted_transactions)
+
+# для разделения результата
+print()
+
+
+@log(filename="../mylog.txt")
+def my_function(x: int, y: int) -> int:
+    return x + y
+
+
+my_function(1, 2)

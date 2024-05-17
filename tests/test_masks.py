@@ -1,5 +1,6 @@
 import pytest
-from src.masks import get_mask_cards, get_mask_account
+from src.masks import get_mask_account, get_mask_cards
+
 
 def test_get_mask_cards(cards):
     assert get_mask_cards("7000792289606361") == "7000 79** **** 6361"

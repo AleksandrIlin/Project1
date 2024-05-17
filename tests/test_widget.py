@@ -1,5 +1,5 @@
 import pytest
-from src.widget import get_masks_accounts_cards, get_date_new
+from src.widget import get_date_new, get_masks_accounts_cards
 
 
 def tset_get_masks_accounts_cards():
