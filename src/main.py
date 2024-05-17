@@ -1,4 +1,5 @@
 import pprint
+from typing import Union
 
 from src.decorators import log
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
@@ -132,3 +133,27 @@ def my_function(x: int, y: int) -> int:
 
 
 my_function(1, 2)
+
+
+@log(filename="../mylog.txt")
+def my_function_error(x: int, y: int) -> Union[int, float, None]:
+    return x / y
+
+
+my_function_error(0, 5)
+
+
+@log()
+def my_function_log_no_filename(x: int, y: int) -> Union[int, float, None]:
+    return x / y
+
+
+my_function_log_no_filename(4, 2)
+
+
+@log()
+def my_function_log_no_filename_error(x: int, y: int) -> Union[int, float, None]:
+    return x / y
+
+
+my_function_log_no_filename_error(0, 3)

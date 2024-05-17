@@ -3,6 +3,7 @@ import pytest
 
 @pytest.fixture
 def transactions() -> list[dict]:
+    """Фикстура transactions"""
     return [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
         {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
@@ -13,11 +14,13 @@ def transactions() -> list[dict]:
 
 @pytest.fixture
 def cards() -> str:
+    """Фикстура для cards"""
     return "7000792289606361"
 
 
 @pytest.fixture
 def transactions1() -> list[dict]:
+    """Фикстура transactions1"""
     return [
         {
             "id": 939719570,
