@@ -1,5 +1,7 @@
 import pprint
+from typing import Union
 
+from src.decorators import log
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 from src.processing import filter_by_state, sort_by_date
 from src.widget import get_date_new, get_masks_accounts_cards
@@ -120,3 +122,43 @@ print()
 
 for card_number in card_number_generator(1, 5):
     print(card_number)
+
+# для разделения результата
+print()
+
+
+@log(filename="../mylog.txt")
+def my_function(x: int, y: int) -> int:
+    """Функция вызова декоратора с файлом сохранения 'mylog.txt'."""
+    return x + y
+
+
+my_function(1, 2)
+
+
+@log(filename="../mylog.txt")
+def my_function_error(x: int, y: int) -> Union[int, float, None]:
+    """Функция вызова декоратора с ошибкой и сохранения вывода в файл 'mylog.txt'."""
+    return x / y
+
+
+my_function_error(0, 5)
+
+
+@log()
+def my_function_log_not_filename(x: int, y: int) -> Union[int, float, None]:
+    """Функция вызова декоратора без файла сохранения и вывод в консоль."""
+    return x / y
+
+
+my_function_log_not_filename(4, 2)
+
+
+# Функция вызова декоратора с ошибкой без файла сохранения и вывод в консоль.
+@log()
+def my_function_log_not_filename_error(x: int, y: int) -> Union[int, float, None]:
+    """Функция вызова декоратора с ошибкой без файла сохранения и вывод в консоль."""
+    return x / y
+
+
+my_function_log_not_filename_error(0, 3)

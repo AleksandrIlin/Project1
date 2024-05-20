@@ -2,7 +2,7 @@ import pytest
 from src.masks import get_mask_account, get_mask_cards
 
 
-def test_get_mask_cards(cards):
+def test_get_mask_cards(cards: str) -> None:
     assert get_mask_cards("7000792289606361") == "7000 79** **** 6361"
 
 
@@ -14,11 +14,11 @@ def test_get_mask_cards(cards):
         ("700079228960636543", ""),
     ],
 )
-def test_get_mask_cards_parametrize(cards, expected):
+def test_get_mask_cards_parametrize(cards: str, expected: str) -> None:
     assert get_mask_cards(cards) == expected
 
 
-def test_get_mask_account_check():
+def test_get_mask_account_check() -> None:
     assert get_mask_account("73654108430135874305") == "**4305"
 
 
@@ -30,5 +30,5 @@ def test_get_mask_account_check():
         ("7365410843013587430523", ""),
     ],
 )
-def test_get_mask_account_parametrize(account, expected):
+def test_get_mask_account_parametrize(account: str, expected: str) -> None:
     assert get_mask_account(account) == expected

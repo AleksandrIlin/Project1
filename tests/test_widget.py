@@ -2,7 +2,7 @@ import pytest
 from src.widget import get_date_new, get_masks_accounts_cards
 
 
-def tset_get_masks_accounts_cards():
+def tset_get_masks_accounts_cards() -> None:
     assert get_masks_accounts_cards("Visa Platinum 7000792289606361") == "Visa Platinum 7000 79** **** 6361"
 
 
@@ -19,11 +19,11 @@ def tset_get_masks_accounts_cards():
         ("Счет 73654108430135874305", "Счет **4305"),
     ],
 )
-def test_get_mask_account(str_number, expected):
+def test_get_mask_account(str_number: str, expected: str) -> None:
     assert get_masks_accounts_cards(str_number) == expected
 
 
-def test_get_date_new():
+def test_get_date_new() -> None:
     assert get_date_new("2018-07-11T02:26:18.671407") == "11.07.2018"
 
 
@@ -35,5 +35,5 @@ def test_get_date_new():
         ("2018-07-11T02:26:18.671407231", ""),
     ],
 )
-def test_get_date_new_parametrize(date_string, expected):
+def test_get_date_new_parametrize(date_string: str, expected: str) -> None:
     assert get_date_new(date_string) == expected
