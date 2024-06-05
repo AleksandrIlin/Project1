@@ -1,1 +1,9 @@
 function_error error: ZeroDivisionError. Inputs: (2, 0), {}
+function_error error: ZeroDivisionError. Inputs: (2, 0), {}
+function_error error: ZeroDivisionError. Inputs: (2, 0), {}
+function_error error: ZeroDivisionError. Inputs: (2, 0), {}
+function_error error: ZeroDivisionError. Inputs: (2, 0), {}
+function_error error: ZeroDivisionError. Inputs: (2, 0), {}
+function_error error: ZeroDivisionError. Inputs: (2, 0), {}
+function_error error: ZeroDivisionError. Inputs: (2, 0), {}
+function_error error: ZeroDivisionError. Inputs: (2, 0), {}

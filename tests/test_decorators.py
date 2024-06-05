@@ -5,14 +5,17 @@ from src.decorators import log
 
 
 # Функция для тестирования
-@log("test.log.txt")
+@log("../test.log.txt")
 def my_function(x: int, y: int) -> int:
     """Функция вызова декоратора с файлом сохранения test.log.txt"""
     return x + y
 
 
+my_function(5, 7)
+
+
 # Функция, которая вызывает ошибку
-@log("test.log_error.txt")
+@log("../test.log_error.txt")
 def function_error(x: int, y: int) -> Union[int, float, None]:
     """Функция вызова декоратора с ошибкой и сохранения вывода в файл test.log_error.txt."""
     return x / y
@@ -24,7 +27,7 @@ def test_log_decorator() -> None:
     assert result == 5
 
     # Проверка лога
-    with open("test.log.txt", "r") as file:
+    with open("../test.log.txt", "r") as file:
         log_contents = file.read()
     assert "function ok" in log_contents
 
@@ -33,6 +36,6 @@ def test_log_decorator() -> None:
         function_error(2, 0)
 
     # Проверка лога ошибки
-    with open("test.log_error.txt", "r") as file:
+    with open("../test.log_error.txt", "r") as file:
         log_contents = file.read()
     assert "function_error error" in log_contents

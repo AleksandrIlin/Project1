@@ -1,1 +1,6 @@
-my_function ok
+my_function ok Result: 5
+my_function ok Result: 5
+my_function ok Result: 5
+my_function ok Result: 5
+my_function ok Result: 12
+my_function ok Result: 5
