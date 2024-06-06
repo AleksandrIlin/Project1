@@ -23,6 +23,6 @@ class TestGetTransactions(unittest.TestCase):
         self.assertEqual(transactions, [])
 
     @patch("builtins.open", side_effect=FileNotFoundError)
-    def test_get_transactions_file_not_found_with_patch(self) -> None:
+    def test_get_transactions_file_not_found_with_patch(self, mock_open: MagicMock) -> None:
         transactions = get_transactions("test_file.json")
         self.assertEqual(transactions, [])
