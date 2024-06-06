@@ -1,7 +1,7 @@
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
+
 from src.utils import get_transactions
-from unittest.mock import MagicMock
 
 
 class TestGetTransactions(unittest.TestCase):
@@ -14,7 +14,7 @@ class TestGetTransactions(unittest.TestCase):
 
     @patch("builtins.open")
     def test_get_transactions_empty_file(self, mock_open: MagicMock) -> None:
-        mock_open.return_value.__enter__.return_value.read.return_value = ''
+        mock_open.return_value.__enter__.return_value.read.return_value = ""
         transactions = get_transactions("test_file.json")
         self.assertEqual(transactions, [])
 
@@ -23,6 +23,6 @@ class TestGetTransactions(unittest.TestCase):
         self.assertEqual(transactions, [])
 
     @patch("builtins.open", side_effect=FileNotFoundError)
-    def test_get_transactions_file_not_found_with_patch(self, mock_open):
+    def test_get_transactions_file_not_found_with_patch(self) -> None:
         transactions = get_transactions("test_file.json")
         self.assertEqual(transactions, [])
