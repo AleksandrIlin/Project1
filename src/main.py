@@ -1,9 +1,12 @@
+import os
 import pprint
 from typing import Union
 
 from src.decorators import log
+from src.external_api import convert_to_rub
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 from src.processing import filter_by_state, sort_by_date
+from src.utils import get_transactions
 from src.widget import get_date_new, get_masks_accounts_cards
 
 # список словарей для processing.py
@@ -136,15 +139,6 @@ def my_function(x: int, y: int) -> int:
 my_function(1, 2)
 
 
-@log(filename="../mylog.txt")
-def my_function_error(x: int, y: int) -> Union[int, float, None]:
-    """Функция вызова декоратора с ошибкой и сохранения вывода в файл 'mylog.txt'."""
-    return x / y
-
-
-my_function_error(0, 5)
-
-
 @log()
 def my_function_log_not_filename(x: int, y: int) -> Union[int, float, None]:
     """Функция вызова декоратора без файла сохранения и вывод в консоль."""
@@ -154,11 +148,31 @@ def my_function_log_not_filename(x: int, y: int) -> Union[int, float, None]:
 my_function_log_not_filename(4, 2)
 
 
-# Функция вызова декоратора с ошибкой без файла сохранения и вывод в консоль.
-@log()
-def my_function_log_not_filename_error(x: int, y: int) -> Union[int, float, None]:
-    """Функция вызова декоратора с ошибкой без файла сохранения и вывод в консоль."""
-    return x / y
+# @log(filename="../mylog.txt")
+# def my_function_error(x: int, y: int) -> Union[int, float, None]:
+#     """Функция вызова декоратора с ошибкой и сохранения вывода в файл 'mylog.txt'."""
+#     return x / y
+#
+#
+# my_function_error(5, 0)
+#
+#
+# @log()
+# def my_function_log_not_filename_error(x: int, y: int) -> Union[int, float, None]:
+#     """Функция вызова декоратора с ошибкой без файла сохранения и вывод в консоль."""
+#     return x / y
+#
+#
+# my_function_log_not_filename_error(3, 0)
 
 
-my_function_log_not_filename_error(0, 3)
+# Путь до файла с данными о финансовых транзакциях
+current_dir = os.path.dirname(os.path.abspath(__file__))
+json_file_path = os.path.join(current_dir, "../data", "operations.json")
+transactions = get_transactions(json_file_path)
+
+
+for transaction in transactions:
+    rub_amount = convert_to_rub(transaction)
+
+    print(f"Transaction amount in RUB: {rub_amount}")
