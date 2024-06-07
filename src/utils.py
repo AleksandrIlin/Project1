@@ -19,10 +19,13 @@ def get_transactions(file_path: str) -> list[dict]:
         logger.info(f'открываем json файл {file_path}')
         with open(file_path, "r", encoding="utf-8") as file:
             repos = json.load(file)
+            logger.info(f'Проверяем что файл не пустой')
             if isinstance(repos, list):
+                logger.info(f'Возвращаем объект python ')
                 return repos
             else:
+                logger.info(f'Возвращаем пустой словарь если файл {file_path} пустой')
                 return []
-    except (FileNotFoundError, json.JSONDecodeError):
-        logger.error('Error message')
+    except Exception as e:
+        logger.error(f'Ошибка {e}')
         return []

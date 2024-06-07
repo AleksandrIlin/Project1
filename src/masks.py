@@ -13,7 +13,7 @@ def get_mask_cards(number: str) -> str:
     """Функция возвращает маску карты"""
     logger.info(f'Проверяем number что он > 0')
     if len(number) > 0:
-        logger.info(f'Проверяем сто number равен 16 символам')
+        logger.info(f'Проверяем что number равен 16 символам')
         if len(number) == 16:
             logger.info(f'Маскируем number согласно условия задачи')
             result = f"{number[0:4]} {number[4:6]}** **** {number[12:]}"
@@ -30,7 +30,7 @@ def get_mask_account(number: str) -> str:
     """Функция возвращает маску счёта"""
     logger.info(f'Проверяем number что он > 0')
     if len(number) > 0:
-        logger.info(f'Проверяем сто number равен 20 символам')
+        logger.info(f'Проверяем что number равен 20 символам')
         if len(number) == 20:
             logger.info(f'Маскируем number согласно условия задачи')
             result = f"**{number[-4:]}"
