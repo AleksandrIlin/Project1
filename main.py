@@ -130,7 +130,7 @@ for card_number in card_number_generator(1, 5):
 print()
 
 
-@log(filename="../mylog.txt")
+@log(filename="mylog.txt")
 def my_function(x: int, y: int) -> int:
     """Функция вызова декоратора с файлом сохранения 'mylog.txt'."""
     return x + y
@@ -168,7 +168,7 @@ my_function_log_not_filename(4, 2)
 
 # Путь до файла с данными о финансовых транзакциях
 current_dir = os.path.dirname(os.path.abspath(__file__))
-json_file_path = os.path.join(current_dir, "../data", "operations.json")
+json_file_path = os.path.join(current_dir, "data", "operations.json")
 transactions = get_transactions(json_file_path)
 
 
