@@ -1,28 +1,115 @@
+import json
 import unittest
-from unittest.mock import MagicMock, patch
+
+from unittest.mock import mock_open, patch, MagicMock
+import pandas as pd
 
 from src.utils import get_transactions
 
 
 class TestGetTransactions(unittest.TestCase):
 
-    @patch("builtins.open")
-    def test_get_transactions_valid_file(self, mock_open: MagicMock) -> None:
-        mock_open.return_value.__enter__.return_value.read.return_value = '[{"transaction_id": 1, "amount": 100}]'
-        transactions = get_transactions("test_file.json")
-        self.assertEqual(transactions, [{"transaction_id": 1, "amount": 100}])
+    @patch("builtins.open", new_callable=mock_open, read_data='[{"transaction": "data1"}, {"transaction": "data2"}]')
+    def test_get_transactions_valid_file(self, mock_file: MagicMock) -> None:
+        expected_data = [{"transaction": "data1"}, {"transaction": "data2"}]
+        result = get_transactions("fake_path.json")
+        self.assertEqual(result, expected_data)
+        mock_file.assert_called_once_with("fake_path.json", "r", encoding="utf-8")
 
-    @patch("builtins.open")
-    def test_get_transactions_empty_file(self, mock_open: MagicMock) -> None:
-        mock_open.return_value.__enter__.return_value.read.return_value = ""
-        transactions = get_transactions("test_file.json")
-        self.assertEqual(transactions, [])
+    @patch("builtins.open", new_callable=mock_open, read_data="{}")
+    def test_get_transactions_invalid_content(self, mock_file: MagicMock) -> None:
+        result = get_transactions("fake_path.json")
+        self.assertEqual(result, [])
+        mock_file.assert_called_once_with("fake_path.json", "r", encoding="utf-8")
 
-    def test_get_transactions_file_not_found(self) -> None:
-        transactions = get_transactions("nonexistent_file.json")
-        self.assertEqual(transactions, [])
+    @patch("builtins.open", new_callable=mock_open, read_data="")
+    def test_get_transactions_empty_file(self, mock_file: MagicMock) -> None:
+        result = get_transactions("fake_path.json")
+        self.assertEqual(result, [])
+        mock_file.assert_called_once_with("fake_path.json", "r", encoding="utf-8")
 
     @patch("builtins.open", side_effect=FileNotFoundError)
-    def test_get_transactions_file_not_found_with_patch(self, mock_open: MagicMock) -> None:
-        transactions = get_transactions("test_file.json")
-        self.assertEqual(transactions, [])
+    def test_get_transactions_file_not_found(self, mock_file: MagicMock) -> None:
+        result = get_transactions("fake_path.json")
+        self.assertEqual(result, [])
+        mock_file.assert_called_once_with("fake_path.json", "r", encoding="utf-8")
+
+    @patch("builtins.open", new_callable=mock_open, read_data='{"transaction": "data"}')
+    @patch("json.load", side_effect=json.JSONDecodeError("Expecting value", "", 0))
+    def test_get_transactions_json_decode_error(self, mock_json_load: MagicMock, mock_file: MagicMock) -> None:
+        result = get_transactions("fake_path.json")
+        self.assertEqual(result, [])
+        mock_file.assert_called_once_with("fake_path.json", "r", encoding="utf-8")
+        mock_json_load.assert_called_once()
+
+    @patch(
+        "builtins.open",
+        new_callable=mock_open,
+        read_data='[{"id": "1", "amount": "100"}, {"id": "2", "amount": "200"}]',
+    )
+    def test_get_transactions_json(self, mock_file: MagicMock) -> None:
+        result = get_transactions("test.json")
+        self.assertEqual(result, [{"id": "1", "amount": "100"}, {"id": "2", "amount": "200"}])
+
+    @patch(
+        "builtins.open",
+        new_callable=mock_open,
+        read_data="id;state;date;amount;currency_name;currency_code;from;to;description\n"
+                  "4699552;EXECUTED;2022-03-23T08:29:37Z;23423;Peso;PHP;Discover 7269000803370165;"
+                  "American Express 1963030970727681;Перевод с карты на карту\n",
+    )
+    def test_get_transactions_csv(self, mock_file: MagicMock) -> None:
+        result = get_transactions("test.csv")
+        self.assertEqual(
+            result,
+            [
+                {
+                    "id": 4699552,
+                    "state": "EXECUTED",
+                    "date": "2022-03-23T08:29:37Z",
+                    "operationAmount": {"amount": 23423.0, "currency": {"name": "Peso", "code": "PHP"}},
+                    "description": "Перевод с карты на карту",
+                    "from": "Discover 7269000803370165",
+                    "to": "American Express 1963030970727681",
+                }
+            ],
+        )
+
+    @patch("builtins.open", new_callable=mock_open, read_data="")
+    def test_get_transactions_xlsx_empty(self, mock_file: MagicMock) -> None:
+        result = get_transactions("test.xlsx")
+        self.assertEqual(result, [])
+
+    data = {
+        "id": [4699552.0],
+        "state": ["EXECUTED"],
+        "date": ["2022-03-23T08:29:37Z"],
+        "amount": [23423.0],
+        "currency_name": ["Peso"],
+        "currency_code": ["PHP"],
+        "from": ["Discover 7269000803370165"],
+        "to": ["American Express 1963030970727681"],
+        "description": ["Перевод с карты на карту"],
+    }
+
+    df = pd.DataFrame(data)
+
+    df.to_excel("test.xlsx", index=False)
+
+    @patch("pandas.read_excel", return_value=df)
+    def test_get_transactions_xlsx(self, mock_read_excel: MagicMock) -> None:
+        result = get_transactions("test.xlsx")
+        self.assertEqual(
+            result,
+            [
+                {
+                    "id": 4699552,
+                    "state": "EXECUTED",
+                    "date": "2022-03-23T08:29:37Z",
+                    "operationAmount": {"amount": 23423.0, "currency": {"name": "Peso", "code": "PHP"}},
+                    "description": "Перевод с карты на карту",
+                    "from": "Discover 7269000803370165",
+                    "to": "American Express 1963030970727681",
+                }
+            ],
+        )
