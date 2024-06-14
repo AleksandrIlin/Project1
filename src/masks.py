@@ -1,4 +1,5 @@
 import os
+
 from src.logger import setup_logger
 
 current_dir = os.path.dirname(os.path.abspath(__file__))

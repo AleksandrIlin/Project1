@@ -1,9 +1,8 @@
 import json
 import unittest
+from unittest.mock import MagicMock, mock_open, patch
 
-from unittest.mock import mock_open, patch, MagicMock
 import pandas as pd
-
 from src.utils import get_transactions
 
 
@@ -55,8 +54,8 @@ class TestGetTransactions(unittest.TestCase):
         "builtins.open",
         new_callable=mock_open,
         read_data="id;state;date;amount;currency_name;currency_code;from;to;description\n"
-                  "4699552;EXECUTED;2022-03-23T08:29:37Z;23423;Peso;PHP;Discover 7269000803370165;"
-                  "American Express 1963030970727681;Перевод с карты на карту\n",
+        "4699552;EXECUTED;2022-03-23T08:29:37Z;23423;Peso;PHP;Discover 7269000803370165;"
+        "American Express 1963030970727681;Перевод с карты на карту\n",
     )
     def test_get_transactions_csv(self, mock_file: MagicMock) -> None:
         result = get_transactions("test.csv")
