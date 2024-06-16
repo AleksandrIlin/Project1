@@ -16,5 +16,5 @@ def sort_by_date(transactions: list, order: bool = True) -> list:
     Функция использует встроенную функцию `sorted()` для сортировки списка словарей по дате
     """
     # Сортировка по дате с использованием лямбда-функции
-    sorted_transactions = sorted(transactions, key=lambda x: x["date"], reverse=order)
+    sorted_transactions = sorted([tx for tx in transactions if "date" in tx], key=lambda x: x["date"], reverse=order)
     return sorted_transactions

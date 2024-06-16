@@ -12,6 +12,8 @@ def get_masks_accounts_cards(str_number: str) -> str:
             result = get_mask_account(str_number.split()[-1])
             str_mask_account = f"{str_number[:-20]}{result}"
             return str_mask_account
+    else:
+        return ""
     return ""
 
 
