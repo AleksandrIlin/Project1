@@ -1,7 +1,8 @@
 import datetime
 import os
-import pandas as pd
 from typing import Any
+
+import pandas as pd
 from src.processing import filter_by_state, sort_by_date
 from src.utils import get_transactions, get_transactions_filter_by_key, get_transactions_filter_by_rub
 from src.widget import get_masks_accounts_cards
